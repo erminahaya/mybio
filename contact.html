@@ -81,10 +81,15 @@
   <img src="https://erminahaya.github.io/mybio/Photo1.jpg" alt="John">
   <h1>Haya Ermina</h1>
   <p class="title">I will share interesting experiences with you and make you the happiest person.</p>
-  <div style="margin: 24px 0;">
-  </div>
-  <p><a href="<script>document.write(atob('aHR0cHM6Ly93d3cuZWZmZWN0aXZlcmF0ZWNwbS5jb20vcGd4aHY5M3U1dz9rZXk9Njg0OTU0Yjg5MzI0NGEzZTY1ZjczZGI1NzI4NzMzZTU='));</script>" target="_blank"><button>Contact Me</button></a></p>
+  <div style="margin: 24px 0;"></div>
+  <p><button id="contactBtn">Contact Me</button></p>
 </div>
+
+<script>
+  document.getElementById("contactBtn").addEventListener("click", function() {
+    window.open(atob('aHR0cHM6Ly93d3cuZWZmZWN0aXZlcmF0ZWNwbS5jb20vcGd4aHY5M3U1dz9rZXk9Njg0OTU0Yjg5MzI0NGEzZTY1ZjczZGI1NzI4NzMzZTU='), "_blank");
+  });
+</script>
 
 </body>
 </html>
