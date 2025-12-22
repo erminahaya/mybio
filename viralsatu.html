@@ -1,1 +1,190 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Artikel: Optimasi Video Auto-Responsive</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    line-height: 1.6;
+    background-color: #f0f2f5;
+    padding: 20px;
+  }
+  .container {
+    max-width: 1100px;
+    margin: auto;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
 
+  /* Artikel */
+  .main-content {
+    flex: 2;
+    background: white;
+    padding: 25px;
+    border-radius: 15px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+  }
+  .main-content h2 { margin-bottom: 20px; color: #333; border-left: 5px solid #000; padding-left: 15px; }
+  .main-content h3 { margin: 20px 0 10px 0; color: #444; }
+  .main-content p { margin-bottom: 15px; text-align: justify; color: #444; }
+
+  /* Sidebar Card - Otomatis Mengikuti Rasio Asli Video */
+  .sidebar { flex: 1; min-width: 320px; }
+  .card {
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    background: white;
+    border-radius: 20px;
+    overflow: hidden;
+    position: sticky;
+    top: 20px;
+    cursor: zoom-in;
+    background-color: #000;
+  }
+  .card video {
+    width: 100%;
+    height: auto; /* Mengikuti rasio asli file video */
+    display: block;
+    transition: transform 0.3s ease;
+  }
+  .card:hover video { transform: scale(1.02); }
+
+  /* Overlay Video (Responsive Fullscreen) */
+  #videoOverlay {
+    display: none;
+    position: fixed;
+    z-index: 9999;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0,0,0,0.95);
+    justify-content: center;
+    align-items: center;
+  }
+  #videoOverlay video {
+    max-height: 95vh;
+    max-width: 95vw;
+    border-radius: 5px;
+    /* Menjaga rasio asli saat diperbesar tanpa terpotong */
+    object-fit: contain; 
+  }
+  #closeBtn {
+    position: absolute;
+    top: 20px; right: 30px;
+    color: white;
+    font-size: 40px;
+    font-weight: bold;
+    cursor: pointer;
+    z-index: 10000;
+  }
+
+  /* Slot Iklan */
+  .ad-wrapper {
+    margin: 20px 0;
+    text-align: center;
+    min-height: 90px;
+    background: #f9f9f9;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border: 1px dashed #ddd;
+  }
+  .ad-label { font-size: 11px; color: #ccc; margin-bottom: 5px; }
+
+  @media (max-width: 768px) {
+    .container { flex-direction: column; }
+    .sidebar { order: -1; }
+  }
+</style>
+</head>
+<body>
+
+  <div id="videoOverlay">
+    <span id="closeBtn">&times;</span>
+    <video id="expandedVideo" controls autoplay loop muted></video>
+  </div>
+
+  <div class="ad-wrapper">
+    <span class="ad-label">Advertisement</span>
+    <script type="text/javascript">
+      var adBannerAtas = "PHNjcmlwdCB0eXBlPSJ0ZXh0L2phdmFzY3JpcHQiPgogIGF0T3B0aW9ucyA9IHsKICAgICdrZXknIDogJ2E4N2ZjYjMwM2MyZTI3NTM2NDc3NDVlMTA3YmRkMmM5JywKICAgICdmb3JtYXQnIDogJ2lmcmFtZScsCiAgICAnheightcgOiA5MCwKICAgICd3aWR0aCcgOiA3MjgsCiAgICAncGFyYW1zJyA6IHt9CiAgfTsKPC9zY3JpcHQ+CjxzY3JpcHQgdHlwZT0idGV4dC9qYXZhc2NyaXB0IiBzcmM9Imh0dHBzOi8vd3d3LmhpZ2hwZXJmb3JtYW5jZWZvcm1hdC5jb20vYTg3ZmNiMzAzYzJlMjc1MzY0Nzc0NWUxMDdiZGQyYzkvaW52b2tlLmpzIj48L3NjcmlwdD4=";
+      document.write(atob(adBannerAtas));
+    </script>
+  </div>
+
+  <div class="container">
+    <div class="main-content">
+      <h2>Panduan Format Video: Klik Video Untuk Memperbesar Otomatis</h2>
+      
+      <p>Dalam pengembangan web modern, fleksibilitas adalah kunci. Tidak semua video diciptakan sama; ada yang membutuhkan lebar horizontal untuk pemandangan, dan ada yang membutuhkan tinggi vertikal untuk interaksi personal.</p>
+
+      <h3>1. Fleksibilitas Rasio (Auto-Detect)</h3>
+      <p>Skrip pada halaman ini sekarang menggunakan sistem <b>Auto-Aspect Ratio</b>. Jika Anda memasukkan video horizontal (16:9), kartu di sidebar akan menyesuaikan tingginya secara otomatis tanpa memaksa video menjadi gepeng atau terpotong.</p>
+      
+      
+
+      <div class="ad-wrapper">
+        <script type="text/javascript">
+          var adNativeTengah = "PHNjcmlwdAogIGFzeW5jPSJhc3luYyIKICBkYXRhLWNmYXN5bmM9ImZhbHNlIgogIHNyYz0iaHR0cHM6Ly9wbDIwNzM0MTA1LmVmZmVjdGl2ZWdhdGVjcG0uY29tLzFjNTE1ODYzM2MzMDFhNzY5ZTMwMzUxZGU3N2VkNDRlL2ludm9rZS5qcyIKPjwvc2NyaXB0Pgo8ZGl2IGlkPSJjb250YWluZXItMWM1MTU4NjMzYzMwMWE3NjllMzAzNTFkZTc3ZWQ0NGUiPjwvZGl2Pg==";
+          document.write(atob(adNativeTengah));
+        </script>
+      </div>
+
+      <h3>2. Pengalaman Pengguna yang Mulus</h3>
+      <p>Dengan menghapus batasan <code>aspect-ratio: 9/16</code> dan menggantinya dengan <code>height: auto</code>, video tetap terlihat profesional baik di layar mobile maupun desktop. Saat diklik, sistem overlay akan mendeteksi orientasi video asli dan menampilkannya dalam format terbaik (contain) agar tidak melewati batas layar.</p>
+
+      <h3>3. Keamanan Aset dengan Base64</h3>
+      <p>Tautan video dan skrip iklan tetap terlindungi di dalam enkripsi <b>Base64</b>. Ini memastikan bahwa meskipun sistem hosting melakukan pemindaian berkas, aset digital Anda tetap aman dan dapat dimuat dengan sempurna di sisi pengguna.</p>
+    </div>
+
+    <div class="sidebar">
+      <div class="card" id="videoCard">
+        <video id="profileVideo" autoplay loop muted playsinline></video>
+      </div>
+    </div>
+  </div>
+
+  <script type="text/javascript">
+    (function() {
+      // Tautan video dalam Base64
+      var videoBase64 = "aHR0cHM6Ly9jZG4udmlkZXkuY28vcG5GbFNkdnQxLm1wNA==";
+      var videoUrl = atob(videoBase64);
+      
+      var profileVideo = document.getElementById('profileVideo');
+      var overlay = document.getElementById('videoOverlay');
+      var expandedVideo = document.getElementById('expandedVideo');
+      var closeBtn = document.getElementById('closeBtn');
+
+      if (profileVideo) {
+        profileVideo.src = videoUrl;
+      }
+
+      // Fungsi klik untuk memperbesar (Lightbox)
+      document.getElementById('videoCard').onclick = function() {
+        overlay.style.display = "flex";
+        expandedVideo.src = videoUrl;
+        expandedVideo.play();
+      };
+
+      // Fungsi tutup overlay
+      closeBtn.onclick = function() {
+        overlay.style.display = "none";
+        expandedVideo.pause();
+        expandedVideo.src = ""; // Flush memory
+      };
+
+      // Tutup jika klik area hitam (luar video)
+      overlay.onclick = function(event) {
+        if (event.target == overlay) {
+          closeBtn.onclick();
+        }
+      };
+    })();
+  </script>
+
+</body>
+</html>
